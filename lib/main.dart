@@ -151,8 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //Wechsel auf Seite 2 mit den angezeigten Farben
   void _changeToPage2(){
     //überprüft, ob Werte in Range sind
-    if (this.selectedColors.isNotEmpty 
-        && this.secLengthRound >= 30 && this.secLengthRound <= 300
+    if (this.secLengthRound >= 30 && this.secLengthRound <= 300
         && this.secLengthRest >= 30 && this.secLengthRest <= 150    
         && this.selectedColors.length >= this.anzColorsOnPage     
       ) {
@@ -391,10 +390,9 @@ class _MyHomePageState extends State<MyHomePage> {
                  color: Colors.deepPurpleAccent,
                 ),*/                 
             ),          
-        
-        
-           
-Text("\n\n\n"),
+                  
+            Text("\n\n\n"),
+
             TextButton(
               child: Text(
                 'weiter',
@@ -406,7 +404,7 @@ Text("\n\n\n"),
               autofocus: true,
               onPressed: _changeToPage2,
               onLongPress: _changeToPage2,
-              )
+              ),
           ],
         ),
         ),
@@ -459,6 +457,10 @@ int anzRounds2=1;
 
 int anzRoundsDone=1;
 late Timer _timer;
+late Timer _timerCD;
+int secsLengthRoundCD = 1;
+int minsLengthRoundCD = 1;
+
 
 
 
@@ -470,15 +472,8 @@ void initState(){
   _initializeListWithAllHex();
   _set4RandomHex();
 
-
-  //Timer mytimer = Timer.periodic(Duration(seconds: this.secChangeColor2), (Timer t) => setState((){})); //nach 10s setState aufgerufen, build-Methode neu durchlaufen ->gibt es einen weg, der weniger rechenleistung etc. erfordert?
-  //mytimer.cancel();
-  /*this.initializer01++;
-  if(this.initializer01 > 3){
-    mytimer.cancel();
-  }
-  */
-    _timer=Timer.periodic(Duration(seconds: this.secChangeColor2), (Timer t) => setState((){_set4RandomHex();})); //nach 10s setState aufgerufen, build-Methode neu durchlaufen ->gibt es einen weg, der weniger rechenleistung etc. erfordert?
+  _timer=Timer.periodic(Duration(seconds: this.secChangeColor2), (Timer t) => setState((){_set4RandomHex();})); //nach 10s setState aufgerufen, build-Methode neu durchlaufen ->gibt es einen weg, der weniger rechenleistung etc. erfordert?
+  _timerCD=Timer.periodic(Duration(seconds: 1), (Timer timer) => setState((){_setCountdown();})); //nach 10s setState aufgerufen, build-Methode neu durchlaufen ->gibt es einen weg, der weniger rechenleistung etc. erfordert?
 
   
   super.initState();
@@ -556,16 +551,27 @@ void initState(){
                 width: MediaQuery.of(context).size.width,
               
             ),
-            DecoratedBox(
-              decoration: BoxDecoration(color: Colors.red),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height*(0.04),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(color: Colors.red),
-                  child: Text('blablabla'),
-              ),
-              
-            ),)
+
+            Container(
+              height: MediaQuery.of(context).size.height*(0.04),
+              width: MediaQuery.of(context).size.width,
+              color: Colors.red,
+              child: Row(
+                children: [
+                  Text('blablav'),           
+                  TextButton(
+                    child: Text('Startmenü'),
+                    autofocus: true,
+                    onPressed: null,
+                    onLongPress: null,
+                  ),
+                  Text(this.minsLengthRoundCD.toString().padLeft(2, '0')+':'+this.secsLengthRoundCD.toString().padLeft(2,'0')),           
+                ],
+              )
+            ),
+            
+            
+            
 
             
         ],
@@ -601,11 +607,17 @@ void initState(){
    * Initialisiert die Settingvariablen in Page2 mit den korrekten Werten aus Page1, da diese nicht direkt als lokale Variable gebraucht werden können
   */
   void _initializeSettinvariables(){
+    print(3.7.toInt());//printet 5
+  
+
     this.anzColorsOnPage2=widget.anzColorsOnPage;
     this.secChangeColor2=widget.secChangeColor;
     this.secLengthRound2=widget.secLengthRound;
     this.secLengthRest2=widget.secLengthRest;
     this.anzRounds2=widget.anzRounds;
+
+    this.minsLengthRoundCD=(this.secLengthRound2/60).toInt();
+    this.secsLengthRoundCD=this.secLengthRound2%60;
   }
 
   
@@ -686,36 +698,6 @@ void initState(){
   }
 
   /**
-   * return zufällig einen Hex-Wert aus listWithSelectedColors
-   * Wenn eine Runde vorbei ist wird der Hex-Wert von Schwarz zurückgegeben, was dem user ein Break anzeigt
-   */
-  int _getRandomHex(){
-
-    int randomHex=(int.parse('0xff000000'));
-    int randomInt;
-    print('now - start:'+(DateTime.now().millisecondsSinceEpoch-this.start).toString());
-    print('secLengthRound in ms: '+(secLengthRound2*1000).toString());
-
-    if(this.anzRoundsDone <= this.anzRounds2){
-      if((DateTime.now().millisecondsSinceEpoch-this.start) < (this.secLengthRound2*1000*anzRoundsDone + this.secLengthRest2*1000*(anzRoundsDone-1))){
-        Random random = new Random();
-        randomInt = random.nextInt(listWithSelectedColors.length);
-        randomHex = listWithSelectedHex[randomInt];
-      }else if((DateTime.now().millisecondsSinceEpoch - this.start) < (this.secLengthRound2*1000*anzRoundsDone + this.secLengthRest2*1000*anzRoundsDone) ){
-        randomHex=(int.parse('0xff000000')); 
-      }else{
-        //randomHex=(int.parse('0xffff0000')); 
-
-        this.anzRoundsDone++;
-      }
-    }else{
-      randomHex=(int.parse('0xffff0000')); 
-    }
-    
-    return randomHex;
-  }
-
-    /**
    * setzt zufällige Hex-Werte in die List list4RandomHex -> nur die werte, die auch angezeigt werden(wenn nur zwei angezeigt werden auch nur [0] und [1] gesetzt)
    * beinhaltet die ganze Zeitmanagement-Logik
    */
@@ -760,6 +742,16 @@ void initState(){
       Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: 'homepage')));
     }
     
+  }
+
+  void _setCountdown(){
+    if(this.secsLengthRoundCD>0){
+      this.secsLengthRoundCD--;
+    }else if(this.minsLengthRoundCD>0){
+      this.minsLengthRoundCD--;
+      this.secsLengthRoundCD=59;
+    }
+
   }
 
 
