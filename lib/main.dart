@@ -148,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [  
 
   //Checkbox - Mit welchen Farben trainieren
-            SizedBox(height: 5,),
+            SizedBox(height: 20,),
             Text(
               'Wähle die Fraben aus, mit denen du trainieren möchtest:',
               style: TextStyle(fontSize: 20),
@@ -171,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
            
   //Dropdown - wie viele Farben aufs Mal angezeigt werden
             SizedBox(height:12),
-            Text('Wähle wie viele Farben aufs Mal angezeigt werden sollen?',
+            Text('Wähle wie viele Farben aufs Mal angezeigt werden sollen:',
               style: TextStyle(fontSize: 15),
             ),
             DropdownButton<int>(
@@ -380,6 +380,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: _changeToPage2,
               onLongPress: _changeToPage2,
               ),
+              SizedBox(height:20),
           ],
         ),
         ),
