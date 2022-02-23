@@ -143,12 +143,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       body: SingleChildScrollView(child: //damit scrollable wenn content grösser ist als bildschirmgrösses
+        Padding(padding: EdgeInsets.only(left: 5, right: 5, top: 20),
+        child: 
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [  
 
   //Checkbox - Mit welchen Farben trainieren
-            SizedBox(height: 20,),
+            //SizedBox(height: 20,),
             Text(
               'Wähle die Fraben aus, mit denen du trainieren möchtest:',
               style: TextStyle(fontSize: 20),
@@ -384,6 +386,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         ),
+        ),
     );
   }
 
@@ -452,7 +455,10 @@ void initState(){
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( 
+    return WillPopScope(
+      onWillPop: (() async => false), //damit swipe back(ios) bzw. Back Button (android) deaktiviert
+      child: 
+      Scaffold( 
       backgroundColor:Color(0xff000000),
       body: Column(
         children: [
@@ -495,11 +501,12 @@ void initState(){
                 children: [ 
                   Text('Remaining: '+ currentMinsCD.toString().padLeft(2, '0') + ':' + currentSecsCD.toString().padLeft(2,'0'),
                     style: TextStyle(color: Colors.white),
+                    
                   ), 
                   Text(this.anzRoundsDone.toString()+'/'+this.anzRounds2.toString()+' Runden',
                     style: TextStyle(color: Colors.white),
                   ),         
-                  TextButton(
+                  TextButton(     
                     child: Text('Hauptmenü',
                       style: TextStyle(color: Colors.white,),
                     ),
@@ -523,7 +530,9 @@ void initState(){
             ),
         ],   
       ),
-    );
+    ),
+    ); 
+    
   }
 
   /**
@@ -574,7 +583,7 @@ void initState(){
   void _initializeListHeight4Containers(){
     this.listHeight4Container.clear();
     for (int i = 0; i < this.anzColorsOnPage2; i++) {
-      listHeight4Container.add((1-0.04)/anzColorsOnPage2);
+      listHeight4Container.add((1-0.04)/anzColorsOnPage2);  //0.04 selbst definiert als "footer"
     }
     if (this.anzColorsOnPage2 < 4) {
       for (int i = anzColorsOnPage2; i < 4; i++) {
