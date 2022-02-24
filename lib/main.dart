@@ -505,7 +505,7 @@ void initState(){
                   ), 
                   Text(this.anzRoundsDone.toString()+'/'+this.anzRounds2.toString()+' Runden',
                     style: TextStyle(color: Colors.white),
-                  ),         
+                  ),                    
                   TextButton(     
                     child: Text('Hauptmenü',
                       style: TextStyle(color: Colors.white,),
