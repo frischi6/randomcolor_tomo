@@ -538,7 +538,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
 
             //footer
             Container(
-                height: MediaQuery.of(context).size.height * (0.04),
+                height: MediaQuery.of(context).size.height * (0.05),
                 width: MediaQuery.of(context).size.width,
                 color: Colors.grey.shade700,
                 child: Row(
@@ -637,7 +637,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     this.listHeight4Container.clear();
     for (int i = 0; i < this.anzColorsOnPage2; i++) {
       listHeight4Container.add(
-          (1 - 0.04) / anzColorsOnPage2); //0.04 selbst definiert als "footer"
+          (1 - 0.05) / anzColorsOnPage2); //0.04 selbst definiert als "footer"
     }
     if (this.anzColorsOnPage2 < 4) {
       for (int i = anzColorsOnPage2; i < 4; i++) {
@@ -790,7 +790,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
       //ähnlich wie modalWindow
       content: Text('Trainingsrunde beendet!'),
       actions: [
-        TextButton(onPressed: changeToPage1, child: Text('Hauptmenue')),
+        TextButton(onPressed: changeToPage1, child: Text('Hauptmenü')),
         TextButton(onPressed: changeToPage2, child: Text('Neustart')),
       ],
     );
