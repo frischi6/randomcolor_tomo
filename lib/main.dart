@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   Widget buildSingleCheckbox(ColorsCheckbox checkbox) => CheckboxListTile(
-        activeColor: Colors.black,
+        activeColor: Colors.red,
         controlAffinity:
             ListTileControlAffinity.leading, //checkbox links von text
         value: checkbox.selected,
@@ -197,7 +197,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   );
                 },
-                items: <int>[1, 2, 3, 4].map<DropdownMenuItem<int>>(
+                items: <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                    .map<DropdownMenuItem<int>>(
                   (int val) {
                     return DropdownMenuItem<int>(
                       value: val,
