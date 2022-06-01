@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:randomcolor_tomo/ColorsCheckbox.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 
 void main() {
   runApp(MyApp());
@@ -163,20 +164,220 @@ class _MyHomePageState extends State<MyHomePage> {
               //SizedBox(height: 20,),
               Text(
                 'Wähle die Fraben aus, mit denen du trainieren möchtest:',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 15),
               ),
-              SizedBox(
-                height:
-                    310, //evtl. noch flexibel machen und nicht hardcode falls sich anzahl ändert oder format des bildschirms
-                child: ListView(
-                  padding: EdgeInsets.all(12),
-                  children: [
-                    ...checkboxcolors.map(buildSingleCheckbox).toList(),
+              SizedBox(height: 18),
+              ConstrainedBox(
+                constraints: BoxConstraints(),
+                //evtl. noch flexibel machen und nicht hardcode falls sich anzahl ändert oder format des bildschirms
+                child: MultiSelectContainer(
+                  prefix: MultiSelectPrefix(
+                      selectedPrefix: const Padding(
+                    padding: EdgeInsets.only(right: 5),
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.white,
+                      size: 14,
+                    ),
+                  )),
+                  items: [
+                    MultiSelectCard(
+                      value: 'f5ff00',
+                      label: 'Gelb',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.yellow.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.yellow,
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: 'ff5f1f',
+                      label: 'Orange',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.orange.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.orange,
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: 'ff0000',
+                      label: 'Rot',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.red.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: 'f500ab',
+                      label: 'Pink',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.pink.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.pink,
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: '6600a1',
+                      label: 'Violett',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 102, 0, 161)
+                                .withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Color.fromARGB(255, 102, 0, 161),
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: '00b2ee',
+                      label: 'Hellblau',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.lightBlue.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.lightBlue,
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: '00008b',
+                      label: 'Dunkelblau',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 00, 0, 139)
+                                .withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Color.fromARGB(255, 00, 0, 139),
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: '00ee00',
+                      label: 'Hellgrün',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.lightGreen.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.lightGreen,
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: '006400',
+                      label: 'Dunkelgrün',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color:
+                                Color.fromARGB(255, 0, 100, 0).withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Color.fromARGB(255, 0, 100, 0),
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: '00868b',
+                      label: 'Türkis',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 0, 134, 139)
+                                .withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Color.fromARGB(255, 0, 134, 139),
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: 'a8a8a8',
+                      label: 'Grau',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 168, 168, 168)
+                                .withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Color.fromARGB(255, 168, 168, 168),
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: '000000',
+                      label: 'Schwarz',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: 'bd9b16',
+                      label: 'Gold',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 189, 155, 22)
+                                .withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Color.fromARGB(255, 189, 155, 22),
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: 'ffffff',
+                      label: 'Weiss',
+                      textStyles: const MultiSelectItemTextStyles(
+                          selectedTextStyle: TextStyle(color: Colors.black)),
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all())),
+                      prefix: MultiSelectPrefix(
+                        selectedPrefix: const Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 14,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
+                  onChange: (allSelectedItems, selectedItem) {
+                    this.selectedColors.add(selectedItem);
+                  },
                 ),
               ),
+              SizedBox(height: 15),
               Divider(
-                color: Colors.black54,
+                color: Colors.black,
                 height: 15,
                 indent: 30,
                 endIndent: 30,
@@ -210,7 +411,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 12),
 
               Divider(
-                color: Colors.black54,
+                color: Colors.black,
                 height: 15,
                 indent: 30,
                 endIndent: 30,
@@ -235,7 +436,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 12),
 
               Divider(
-                color: Colors.black54,
+                color: Colors.black,
                 height: 15,
                 indent: 30,
                 endIndent: 30,
@@ -300,7 +501,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 12),
 
               Divider(
-                color: Colors.black54,
+                color: Colors.black,
                 height: 15,
                 indent: 30,
                 endIndent: 30,
@@ -367,7 +568,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 12),
 
               Divider(
-                color: Colors.black54,
+                color: Colors.black,
                 height: 15,
                 indent: 30,
                 endIndent: 30,
@@ -401,7 +602,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 12),
 
               Divider(
-                color: Colors.black54,
+                color: Colors.black,
                 height: 15,
                 indent: 30,
                 endIndent: 30,
@@ -461,6 +662,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
   var listWithSelectedColors = []; //gefüllt mit ColorsCheckbox-Elemente
   var listWithSelectedHex = []; //gefüllt mit Hex-Werten (int)
   var listHeight4Container = [];
+
   var list4RandomHex = [0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000];
   int anzColorsOnPage2 = 1;
   int secChangeColor2 = 1;
@@ -689,8 +891,8 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     _initializeListSelectedColors();
     String hexxcode = '0xff';
     int theHexCode = 0;
-    for (ColorsCheckbox item in listWithSelectedColors) {
-      hexxcode = '0xff' + item.hexcode;
+    for (String item in listWithSelectedColors) {
+      hexxcode = '0xff' + item;
       theHexCode = (int.parse(hexxcode));
       this.listWithSelectedHex.add(theHexCode);
     }
@@ -736,6 +938,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
       randomInt = random.nextInt(listWithSelectedColors.length);
 
       //damit nicht gleiche Farben aufs Mal angezeigt werden
+
       /*while (listWithSelectedHex[randomInt] == list4RandomHex[3] ||
           listWithSelectedHex[randomInt] == list4RandomHex[2] ||
           listWithSelectedHex[randomInt] == list4RandomHex[1] ||
