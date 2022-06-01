@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:randomcolor_tomo/ColorsCheckbox.dart';
 import 'package:numberpicker/numberpicker.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
-import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 
 void main() {
   runApp(MyApp());
@@ -170,57 +168,11 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                 height:
                     310, //evtl. noch flexibel machen und nicht hardcode falls sich anzahl ändert oder format des bildschirms
-                child: MultiSelectContainer(
-                  prefix: MultiSelectPrefix(
-                      selectedPrefix: const Padding(
-                    padding: EdgeInsets.only(right: 5),
-                    child: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      size: 14,
-                    ),
-                  )),
-                  items: [
-                    MultiSelectCard(
-                      value: 'f5ff00',
-                      label: 'Gelb',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.yellow.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.yellow,
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: 'ff5f1f',
-                      label: 'Orange',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.orange.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.orange,
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: 'ff0000',
-                      label: 'Rot',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.red.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
+                child: ListView(
+                  padding: EdgeInsets.all(12),
+                  children: [
+                    ...checkboxcolors.map(buildSingleCheckbox).toList(),
                   ],
-                  onChange: (allSelectedItems, selectedItem) {
-                    this.selectedColors.add(selectedItem);
-                  },
                 ),
               ),
               Divider(
@@ -527,6 +479,10 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
   int currentSecsCD = 0;
   int currentMinsCD = 0;
 
+  double footerPercentage = 0.05;
+  double bodyPercentage =
+      0.95; //1-footerPercentage-> dieser Platz muss aufgeteilt werden um Farben anzuzeigen
+
   void initState() {
     _initializeSettinvariables();
     _initializeListHeight4Containers();
@@ -574,6 +530,70 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   (listHeight4Container[2]),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
+                  color: Color(this.list4RandomHex[1]),
+                  border: Border(bottom: BorderSide(color: Colors.black))),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height *
+                  (listHeight4Container[3]),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: Color(this.list4RandomHex[1]),
+                  border: Border(bottom: BorderSide(color: Colors.black))),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height *
+                  (listHeight4Container[4]),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: Color(this.list4RandomHex[1]),
+                  border: Border(bottom: BorderSide(color: Colors.black))),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height *
+                  (listHeight4Container[5]),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: Color(this.list4RandomHex[1]),
+                  border: Border(bottom: BorderSide(color: Colors.black))),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height *
+                  (listHeight4Container[6]),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: Color(this.list4RandomHex[1]),
+                  border: Border(bottom: BorderSide(color: Colors.black))),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height *
+                  (listHeight4Container[7]),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: Color(this.list4RandomHex[1]),
+                  border: Border(bottom: BorderSide(color: Colors.black))),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height *
+                  (listHeight4Container[8]),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: Color(this.list4RandomHex[1]),
+                  border: Border(bottom: BorderSide(color: Colors.black))),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height *
+                  (listHeight4Container[9]),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: Color(this.list4RandomHex[1]),
+                  border: Border(bottom: BorderSide(color: Colors.black))),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height *
+                  (listHeight4Container[10]),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
                 color: Color(this.list4RandomHex[2]),
                 border: Border(bottom: BorderSide(color: Colors.black)),
               ),
@@ -581,13 +601,13 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
             Container(
               color: Color(this.list4RandomHex[3]),
               height: MediaQuery.of(context).size.height *
-                  (listHeight4Container[3]),
+                  (listHeight4Container[11]),
               width: MediaQuery.of(context).size.width,
             ),
 
             //footer
             Container(
-                height: MediaQuery.of(context).size.height * (0.05),
+                height: MediaQuery.of(context).size.height * (footerPercentage),
                 width: MediaQuery.of(context).size.width,
                 color: Colors.grey.shade700,
                 child: Row(
@@ -669,8 +689,8 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     _initializeListSelectedColors();
     String hexxcode = '0xff';
     int theHexCode = 0;
-    for (String item in listWithSelectedColors) {
-      hexxcode = '0xff' + item;
+    for (ColorsCheckbox item in listWithSelectedColors) {
+      hexxcode = '0xff' + item.hexcode;
       theHexCode = (int.parse(hexxcode));
       this.listWithSelectedHex.add(theHexCode);
     }
@@ -684,12 +704,10 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
    */
   void _initializeListHeight4Containers() {
     this.listHeight4Container.clear();
-    for (int i = 0; i < this.anzColorsOnPage2; i++) {
-      listHeight4Container.add(
-          (1 - 0.05) / anzColorsOnPage2); //0.04 selbst definiert als "footer"
-    }
-    if (this.anzColorsOnPage2 < 4) {
-      for (int i = anzColorsOnPage2; i < 4; i++) {
+    for (int i = 0; i < 12; i++) {
+      if (i < anzColorsOnPage2) {
+        listHeight4Container.add(bodyPercentage / anzColorsOnPage2);
+      } else {
         listHeight4Container.add(0);
       }
     }
@@ -718,14 +736,14 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
       randomInt = random.nextInt(listWithSelectedColors.length);
 
       //damit nicht gleiche Farben aufs Mal angezeigt werden
-      while (listWithSelectedHex[randomInt] == list4RandomHex[3] ||
+      /*while (listWithSelectedHex[randomInt] == list4RandomHex[3] ||
           listWithSelectedHex[randomInt] == list4RandomHex[2] ||
           listWithSelectedHex[randomInt] == list4RandomHex[1] ||
           listWithSelectedHex[randomInt] == list4RandomHex[0]) {
         randomInt = random.nextInt(listWithSelectedColors.length);
       }
 
-      this.list4RandomHex[i] = listWithSelectedHex[randomInt];
+      this.list4RandomHex[i] = listWithSelectedHex[randomInt];*/
     }
   }
 
