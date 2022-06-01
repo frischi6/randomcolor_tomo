@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:randomcolor_tomo/ColorsCheckbox.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 
 void main() {
   runApp(MyApp());
@@ -168,11 +170,57 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                 height:
                     310, //evtl. noch flexibel machen und nicht hardcode falls sich anzahl ändert oder format des bildschirms
-                child: ListView(
-                  padding: EdgeInsets.all(12),
-                  children: [
-                    ...checkboxcolors.map(buildSingleCheckbox).toList(),
+                child: MultiSelectContainer(
+                  prefix: MultiSelectPrefix(
+                      selectedPrefix: const Padding(
+                    padding: EdgeInsets.only(right: 5),
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.white,
+                      size: 14,
+                    ),
+                  )),
+                  items: [
+                    MultiSelectCard(
+                      value: 'f5ff00',
+                      label: 'Gelb',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.yellow.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.yellow,
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: 'ff5f1f',
+                      label: 'Orange',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.orange.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.orange,
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    MultiSelectCard(
+                      value: 'ff0000',
+                      label: 'Rot',
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.red.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
                   ],
+                  onChange: (allSelectedItems, selectedItem) {
+                    this.selectedColors.add(selectedItem);
+                  },
                 ),
               ),
               Divider(
@@ -621,8 +669,8 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     _initializeListSelectedColors();
     String hexxcode = '0xff';
     int theHexCode = 0;
-    for (ColorsCheckbox item in listWithSelectedColors) {
-      hexxcode = '0xff' + item.hexcode;
+    for (String item in listWithSelectedColors) {
+      hexxcode = '0xff' + item;
       theHexCode = (int.parse(hexxcode));
       this.listWithSelectedHex.add(theHexCode);
     }

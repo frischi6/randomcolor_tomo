@@ -1,7 +1,9 @@
 class ColorsCheckbox {
   final String colorname;
   bool selected;
-  String hexcode; //noch überprüfen ob in richtigem Format: 0xff muss vorne dran sein/angefügt werden und zusätzliche 6 Ziffern für korrekten code, siehe nächste Zeile
+  String
+      hexcode; //noch überprüfen ob in richtigem Format: 0xff muss vorne dran sein/angefügt werden und zusätzliche 6 Ziffern für korrekten code, siehe nächste Zeile
+
 /*extension ColorExtension on String {
   toColor() {
     var hexColor = this.replaceAll("#", "");
