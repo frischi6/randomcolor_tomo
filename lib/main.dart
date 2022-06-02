@@ -371,7 +371,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                   onChange: (allSelectedItems, selectedItem) {
-                    this.selectedColors.add(selectedItem);
+                    this.selectedColors = allSelectedItems;
                   },
                 ),
               ),
@@ -662,8 +662,22 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
   var listWithSelectedColors = []; //gefüllt mit ColorsCheckbox-Elemente
   var listWithSelectedHex = []; //gefüllt mit Hex-Werten (int)
   var listHeight4Container = [];
+  var listToFillContainersHex = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ]; //nur Füllwerte
 
-  var list4RandomHex = [0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000];
+  //var list4RandomHex = [0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000];
   int anzColorsOnPage2 = 1;
   int secChangeColor2 = 1;
   int secLengthRound2 = 1;
@@ -677,6 +691,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
   int secsLengthRestCD = 1;
   int minsLengthRestCD = 1;
   bool isRest = false;
+  var colorRestText = 0xffffffff;
 
   int currentSecsCD = 0;
   int currentMinsCD = 0;
@@ -710,21 +725,29 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
         body: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height *
-                  (listHeight4Container[
-                      0]), //noch ersetzen mit 1/"wie viele farben aufs mal anzeigen"
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: Color(this.list4RandomHex[0]),
-                border: Border(bottom: BorderSide(color: Colors.black)),
-              ),
-            ),
+                height: MediaQuery.of(context).size.height *
+                    (listHeight4Container[
+                        0]), //noch ersetzen mit 1/"wie viele farben aufs mal anzeigen"
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Color(this.listToFillContainersHex[0]),
+                  border: Border(bottom: BorderSide(color: Colors.black)),
+                ),
+                child: Center(
+                  child: Text(
+                    'Pause',
+                    style: TextStyle(
+                        color: Color(this.colorRestText),
+                        fontSize: 80,
+                        fontWeight: FontWeight.bold),
+                  ),
+                )),
             Container(
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[1]),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: Color(this.list4RandomHex[1]),
+                  color: Color(this.listToFillContainersHex[1]),
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
@@ -732,7 +755,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   (listHeight4Container[2]),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: Color(this.list4RandomHex[1]),
+                  color: Color(this.listToFillContainersHex[2]),
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
@@ -740,7 +763,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   (listHeight4Container[3]),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: Color(this.list4RandomHex[1]),
+                  color: Color(this.listToFillContainersHex[3]),
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
@@ -748,7 +771,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   (listHeight4Container[4]),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: Color(this.list4RandomHex[1]),
+                  color: Color(this.listToFillContainersHex[4]),
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
@@ -756,7 +779,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   (listHeight4Container[5]),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: Color(this.list4RandomHex[1]),
+                  color: Color(this.listToFillContainersHex[5]),
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
@@ -764,7 +787,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   (listHeight4Container[6]),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: Color(this.list4RandomHex[1]),
+                  color: Color(this.listToFillContainersHex[6]),
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
@@ -772,7 +795,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   (listHeight4Container[7]),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: Color(this.list4RandomHex[1]),
+                  color: Color(this.listToFillContainersHex[7]),
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
@@ -780,7 +803,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   (listHeight4Container[8]),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: Color(this.list4RandomHex[1]),
+                  color: Color(this.listToFillContainersHex[8]),
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
@@ -788,7 +811,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   (listHeight4Container[9]),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: Color(this.list4RandomHex[1]),
+                  color: Color(this.listToFillContainersHex[9]),
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
@@ -796,12 +819,12 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   (listHeight4Container[10]),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: Color(this.list4RandomHex[2]),
+                color: Color(this.listToFillContainersHex[10]),
                 border: Border(bottom: BorderSide(color: Colors.black)),
               ),
             ),
             Container(
-              color: Color(this.list4RandomHex[3]),
+              color: Color(this.listToFillContainersHex[11]),
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[11]),
               width: MediaQuery.of(context).size.width,
@@ -930,6 +953,8 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
    * wird nur bei wechsel von rest zu round aufgerufen 
    */
   void organizeRound() {
+    _initializeListHeight4Containers(); //damit nach rest wieder alle Grössen der Container stimmen
+
     this.currentSecsCD = secsLengthRoundCD;
     this.currentMinsCD = minsLengthRoundCD;
     int randomInt;
@@ -938,6 +963,16 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
       randomInt = random.nextInt(listWithSelectedColors.length);
 
       //damit nicht gleiche Farben aufs Mal angezeigt werden
+      if (i == 0) {
+        listToFillContainersHex[i] = listWithSelectedHex[randomInt];
+        colorRestText = listToFillContainersHex[i]; //damit Text nicht erkennbar
+      } else {
+        while (
+            listToFillContainersHex[i - 1] == listWithSelectedHex[randomInt]) {
+          randomInt = random.nextInt(listWithSelectedColors.length);
+        }
+        listToFillContainersHex[i] = listWithSelectedHex[randomInt];
+      }
 
       /*while (listWithSelectedHex[randomInt] == list4RandomHex[3] ||
           listWithSelectedHex[randomInt] == list4RandomHex[2] ||
@@ -957,8 +992,13 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     this.currentSecsCD = this.secsLengthRestCD;
     this.currentMinsCD = this.minsLengthRestCD;
     for (var i = 0; i < this.anzColorsOnPage2; i++) {
-      this.list4RandomHex[i] = 0xff000000;
+      //this.list4RandomHex[i] = 0xff000000;
+      this.listToFillContainersHex[i] = 0xff000000;
+      this.listHeight4Container[i] = 0; //damit Rest angezeigt werden kann
     }
+    this.listHeight4Container[0] = bodyPercentage /
+        1; //damit Rest angezeigt werden kann-> 1. container nimmt 100% ein
+    this.colorRestText = 0xffffffff;
   }
 
   /**
@@ -1030,14 +1070,24 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
             randomInt = random.nextInt(listWithSelectedColors.length);
 
             //damit nicht gleiche Farben aufs Mal angezeigt werden
-            while (listWithSelectedHex[randomInt] == list4RandomHex[3] ||
+            if (i == 0) {
+              listToFillContainersHex[i] = listWithSelectedHex[randomInt];
+              colorRestText = listToFillContainersHex[i];
+            } else {
+              while (listToFillContainersHex[i - 1] ==
+                  listWithSelectedHex[randomInt]) {
+                randomInt = random.nextInt(listWithSelectedColors.length);
+              }
+              listToFillContainersHex[i] = listWithSelectedHex[randomInt];
+            }
+            /*while (listWithSelectedHex[randomInt] == list4RandomHex[3] ||
                 listWithSelectedHex[randomInt] == list4RandomHex[2] ||
                 listWithSelectedHex[randomInt] == list4RandomHex[1] ||
                 listWithSelectedHex[randomInt] == list4RandomHex[0]) {
               randomInt = random.nextInt(listWithSelectedColors.length);
             }
 
-            this.list4RandomHex[i] = listWithSelectedHex[randomInt];
+            this.list4RandomHex[i] = listWithSelectedHex[randomInt];*/
           }
         }
       }
