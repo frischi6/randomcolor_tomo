@@ -699,6 +699,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
   double footerPercentage = 0.05;
   double bodyPercentage =
       0.95; //1-footerPercentage-> dieser Platz muss aufgeteilt werden um Farben anzuzeigen
+  double thicknessVerticalDividerFooter = 0.5;
 
   void initState() {
     _initializeSettinvariables();
@@ -832,53 +833,80 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
 
             //footer
             Container(
-                height: MediaQuery.of(context).size.height * (footerPercentage),
-                width: MediaQuery.of(context).size.width,
-                color: Colors.grey.shade700,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      'Remaining: ' +
-                          currentMinsCD.toString().padLeft(2, '0') +
-                          ':' +
-                          currentSecsCD.toString().padLeft(2, '0'),
-                      style: TextStyle(color: Colors.white),
+              height: MediaQuery.of(context).size.height * (footerPercentage),
+              width: MediaQuery.of(context).size.width,
+              color: Colors.grey.shade700,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        this.anzRoundsDone.toString() +
+                            '/' +
+                            this.anzRounds2.toString() +
+                            ' Runden',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
-                    Text(
-                      this.anzRoundsDone.toString() +
-                          '/' +
-                          this.anzRounds2.toString() +
-                          ' Runden',
-                      style: TextStyle(color: Colors.white),
+                    width: (MediaQuery.of(context).size.width -
+                            thicknessVerticalDividerFooter) /
+                        4,
+                  ),
+                  Container(
+                    child: Center(
+                      child: Text(
+                        currentMinsCD.toString().padLeft(2, '0') +
+                            ':' +
+                            currentSecsCD.toString().padLeft(2, '0'),
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
-                    TextButton(
+                    width: (MediaQuery.of(context).size.width -
+                            thicknessVerticalDividerFooter) /
+                        4,
+                  ),
+                  VerticalDivider(
+                    color: Colors.black,
+                    thickness: 0.5,
+                    width: 0.5,
+                  ),
+                  Container(
+                    child: TextButton(
                       child: Text(
                         'Hauptmenü',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
-                      /*style: TextButton.styleFrom(
-                      side: BorderSide(color: Colors.white),
-                    ),*/
                       autofocus: false,
                       onPressed: changeToPage1,
                       onLongPress: changeToPage1,
                     ),
-                    TextButton(
+                    width: (MediaQuery.of(context).size.width -
+                            thicknessVerticalDividerFooter) /
+                        4,
+                  ),
+                  Container(
+                    child: TextButton(
                       child: Text(
                         'Neustart',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                       autofocus: false,
                       onPressed: neustart,
                       onLongPress: neustart,
                     ),
-                  ],
-                )),
+                    width: (MediaQuery.of(context).size.width -
+                            thicknessVerticalDividerFooter) /
+                        4,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
