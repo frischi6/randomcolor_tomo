@@ -39,9 +39,10 @@ dev_dependencies:
   
 
 flutter_native_splash:
-  color: "#ffffff"
+  color: "#bcfa00"
   color_dark: "#000000"
-  image: braincolor.png
+  image: skillaticsNeongruen.png
+  image_dark: skillaticsSchwarz.png
   android: true
   ios: true
 
