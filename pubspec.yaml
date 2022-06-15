@@ -52,6 +52,8 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/skillatics_weiss.png"
+  adaptive_icon_background: "#ff0000"
+  adaptive_icon_foreground: "assets/skillatics_weiss_foreground.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
