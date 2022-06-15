@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.randomcolor_tomo">
    <application
-        android:label="randomcolor_tomo"
+        android:label="Skillatics"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
