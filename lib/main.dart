@@ -109,11 +109,9 @@ class _MyHomePageState extends State<MyHomePage> {
   //Wechsel auf Seite 2 mit den angezeigten Farben
   void _changeToPage2() {
     //überprüft, ob Werte in Range sind
-    if (this.secLengthRound >= 30 &&
-        this.secLengthRound <= 300 &&
-        this.secLengthRest >= 30 &&
-        this.secLengthRest <= 150 &&
-        this.selectedColors.length >= this.anzColorsOnPage) {
+    if (this.selectedColors.length >= this.anzColorsOnPage &&
+        this.secLengthRound > 0 &&
+        this.secLengthRest > 0) {
       showDialog(
         context: context,
         builder: (_) => alertDialogCD(),
@@ -137,8 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       //Fehlermeldung falls Eingaben nicht korrekt
       setState(() {
-        this.textFehlermeldung =
-            'Deine Angaben sind nicht gültig. Bitte Range beachten.';
+        this.textFehlermeldung = 'Deine Angaben sind ungültig.';
       });
     }
   }
@@ -181,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //Checkbox - Mit welchen Farben trainieren
               //SizedBox(height: 20,),
               Text(
-                'Wähle die Fraben aus, mit denen du trainieren möchtest:',
+                'Die Farben, mit denen du trainieren möchtest?',
                 style: TextStyle(fontSize: 15),
               ),
               SizedBox(height: 18),
@@ -341,12 +338,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       label: 'Schwarz',
                       decorations: MultiSelectItemDecorations(
                           decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.4),
+                            color: Colors.black.withOpacity(0.6),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           selectedDecoration: BoxDecoration(
                               color: Colors.black,
                               borderRadius: BorderRadius.circular(10))),
+                      textStyles: MultiSelectItemTextStyles(
+                        selectedTextStyle: TextStyle(color: Colors.white),
+                      ),
                     ),
                     MultiSelectCard(
                       value: 'bd9b16',
@@ -404,7 +404,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //Dropdown - wie viele Farben aufs Mal angezeigt werden
               SizedBox(height: 12),
               Text(
-                'Wähle, wie viele Farben aufs Mal angezeigt werden sollen:',
+                'Anzahl Farben, die aufs Mal angezeigt werden?',
                 style: TextStyle(fontSize: 15),
               ),
               DropdownButton<int>(
@@ -463,7 +463,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //Applescroll - Dauer eines Durchlaufs
               SizedBox(height: 12),
               Text(
-                "Dauer eines Durchlaufs (Range: 30s - 5min)?",
+                "Dauer eines Durchlaufs?",
                 style: TextStyle(fontSize: 15),
               ),
               SizedBox(
@@ -528,7 +528,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //Applescroll - Dauer einer Pause
               SizedBox(height: 12),
               Text(
-                "Dauer einer Pause (Range: 30s - 2min 30s)?",
+                "Dauer einer Pause?",
                 style: TextStyle(fontSize: 15),
               ),
               SizedBox(
@@ -595,7 +595,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //Dropdown - Anzahl Durchgänge
               SizedBox(height: 12),
               Text(
-                'Wähle, wie viele Durchgänge (1x Durchlauf + 1x Pause) du machen willst:',
+                'Anzahl Durchgänge total?',
                 style: TextStyle(fontSize: 15),
               ),
               DropdownButton<int>(
@@ -1156,8 +1156,18 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
       //ähnlich wie modalWindow
       content: Text('Trainingsrunde beendet!'),
       actions: [
-        TextButton(onPressed: changeToPage1, child: Text('Hauptmenü')),
-        TextButton(onPressed: changeToPage2, child: Text('Neustart')),
+        TextButton(
+            onPressed: changeToPage1,
+            child: Text(
+              'Hauptmenü',
+              style: TextStyle(color: Color.fromARGB(177, 0, 0, 0)),
+            )),
+        TextButton(
+            onPressed: changeToPage2,
+            child: Text(
+              'Neustart',
+              style: TextStyle(color: Color.fromARGB(177, 0, 0, 0)),
+            )),
       ],
     );
   }
