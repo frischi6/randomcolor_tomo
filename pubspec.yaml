@@ -41,8 +41,8 @@ dev_dependencies:
 flutter_native_splash:
   color: "#bcfa00"
   color_dark: "#000000"
-  image: skillaticsNeongruen.png
-  image_dark: skillaticsSchwarz.png
+  image: skillatics_neongruen.png
+  image_dark: skillatics_schwarz.png
   android: true
   ios: true
 

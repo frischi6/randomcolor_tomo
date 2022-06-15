@@ -30,12 +30,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Skillatics',
       theme: ThemeData(
         primarySwatch: colorCustom,
         unselectedWidgetColor: Colors.black,
       ),
-      home: MyHomePage(title: 'Colorswitch by Tomo'),
+      home: MyHomePage(title: 'Skillatics'),
     );
   }
 }
@@ -164,7 +164,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(
+            widget.title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          ),
           centerTitle: true,
           automaticallyImplyLeading: false //damit kein zurück-Pfeil oben links
           ),
