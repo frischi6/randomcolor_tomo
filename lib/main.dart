@@ -10,17 +10,32 @@ void main() {
   runApp(MyApp());
 }
 
+//damit primaryswatch in materialapp themedata customized color haben kann
+Map<int, Color> color = {
+  50: Color.fromRGBO(188, 250, 0, .1),
+  100: Color.fromRGBO(188, 250, 0, .2),
+  200: Color.fromRGBO(188, 250, 0, .3),
+  300: Color.fromRGBO(188, 250, 0, .4),
+  400: Color.fromRGBO(188, 250, 0, .5),
+  500: Color.fromRGBO(188, 250, 0, .6),
+  600: Color.fromRGBO(188, 250, 0, .7),
+  700: Color.fromRGBO(188, 250, 0, .8),
+  800: Color.fromRGBO(188, 250, 0, .9),
+  900: Color.fromRGBO(188, 250, 0, 1),
+};
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  MaterialColor colorCustom = MaterialColor(0xffbcfa00, color);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Skillatics',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: colorCustom,
         unselectedWidgetColor: Colors.black,
       ),
-      home: MyHomePage(title: 'Colorswitch by Tomo'),
+      home: MyHomePage(title: 'Skillatics'),
     );
   }
 }
@@ -149,7 +164,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(
+            widget.title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          ),
           centerTitle: true,
           automaticallyImplyLeading: false //damit kein zurück-Pfeil oben links
           ),
