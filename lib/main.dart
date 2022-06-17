@@ -61,6 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int secLengthRest = 90; //=restDisplayedSec+restDisplayedMin in sekunden
   int anzRounds = 5;
 
+  var selectedArrows = [];
+
 //Werte, die in applescroll angezeigt werden aber nicht so an Page2 übergeben werden können weil Min und Sec gemischt
   int roundDisplayedSec = 30;
   int roundDisplayedMin = 3;
@@ -70,48 +72,14 @@ class _MyHomePageState extends State<MyHomePage> {
 //Checkboxen, mit allen gewünschten Farben
   var selectedColors = [];
 
-//alle Checkboxen, die mit dieser Bezeichnung angezeigt werden
-  final checkboxcolors = [
-    ColorsCheckbox(colorname: 'pink', hexcode: 'f500ab'),
-    ColorsCheckbox(colorname: 'gelb', hexcode: 'f5ff00'),
-    ColorsCheckbox(colorname: 'orange', hexcode: 'ff5f1f'),
-    ColorsCheckbox(colorname: 'grün', hexcode: '21b40e'),
-    ColorsCheckbox(colorname: 'blau', hexcode: '3383e6'),
-    ColorsCheckbox(colorname: 'weiss', hexcode: 'ffffff'),
-  ];
-
-  Widget buildSingleCheckbox(ColorsCheckbox checkbox) => CheckboxListTile(
-        activeColor: Colors.red,
-        controlAffinity:
-            ListTileControlAffinity.leading, //checkbox links von text
-        value: checkbox.selected,
-        title: Text(
-          checkbox.colorname,
-          style: TextStyle(
-            fontSize: 20,
-          ),
-        ),
-        onChanged: (selected) => _checkboxChanged(checkbox, checkbox.selected),
-      );
-
-  void _checkboxChanged(ColorsCheckbox checkbox, bool selected) {
-    setState(() {
-      if (checkbox.selected) {
-        checkbox.selected = false;
-        selectedColors.remove(checkbox);
-      } else {
-        checkbox.selected = true;
-        selectedColors.add(checkbox);
-      }
-    });
-  }
-
   //Wechsel auf Seite 2 mit den angezeigten Farben
   void _changeToPage2() {
+    organizeArrowsColors();
     //überprüft, ob Werte in Range sind
     if (this.selectedColors.length >= this.anzColorsOnPage &&
         this.secLengthRound > 0 &&
-        this.secLengthRest > 0) {
+        this.secLengthRest > 0 &&
+        this.selectedArrows.length != 0) {
       showDialog(
         context: context,
         builder: (_) => alertDialogCD(),
@@ -123,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
           MaterialPageRoute(
             builder: (context) => RandomColorPage2(
               listSelectedColors: this.selectedColors,
+              listSelectedArrows: this.selectedArrows,
               anzColorsOnPage: this.anzColorsOnPage,
               secChangeColor: this.secChangeColor,
               secLengthRound: this.secLengthRound,
@@ -137,6 +106,23 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         this.textFehlermeldung = 'Deine Angaben sind ungültig.';
       });
+    }
+  }
+
+  /**
+   * Initializes selectedArrows[] and sets correct color for arrows in selectedcolors
+   */
+  void organizeArrowsColors() {
+    for (int i = 0; i < selectedColors.length; i++) {
+      if (selectedColors[i].length != 6) {
+        if (selectedColors[i] == "north") {
+          selectedArrows.add(Icon(Icons.north));
+          selectedColors[i] = 'fefefe';
+        } else if (selectedColors[i] == 'east') {
+          selectedArrows.add(Icon(Icons.east));
+          selectedColors[i] = 'fefefe';
+        }
+      } else {}
     }
   }
 
@@ -368,7 +354,215 @@ class _MyHomePageState extends State<MyHomePage> {
                           selectedTextStyle: TextStyle(color: Colors.black)),
                       decorations: MultiSelectItemDecorations(
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.4),
+                            color: Color.fromARGB(255, 203, 203, 203)
+                                .withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all())),
+                      prefix: MultiSelectPrefix(
+                        selectedPrefix: const Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                    MultiSelectCard(
+                      value: 'north',
+                      child: Icon(Icons.north),
+                      textStyles: const MultiSelectItemTextStyles(
+                          selectedTextStyle: TextStyle(color: Colors.black)),
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all())),
+                      prefix: MultiSelectPrefix(
+                        selectedPrefix: const Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                    MultiSelectCard(
+                      value: 'east',
+                      child: Icon(Icons.east),
+                      textStyles: const MultiSelectItemTextStyles(
+                          selectedTextStyle: TextStyle(color: Colors.black)),
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all())),
+                      prefix: MultiSelectPrefix(
+                        selectedPrefix: const Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                    MultiSelectCard(
+                      value: 'south',
+                      child: Icon(Icons.south),
+                      textStyles: const MultiSelectItemTextStyles(
+                          selectedTextStyle: TextStyle(color: Colors.black)),
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all())),
+                      prefix: MultiSelectPrefix(
+                        selectedPrefix: const Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                    MultiSelectCard(
+                      value: 'west',
+                      child: Icon(Icons.west),
+                      textStyles: const MultiSelectItemTextStyles(
+                          selectedTextStyle: TextStyle(color: Colors.black)),
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all())),
+                      prefix: MultiSelectPrefix(
+                        selectedPrefix: const Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                    MultiSelectCard(
+                      value: 'northwest',
+                      child: Icon(Icons.north_west),
+                      textStyles: const MultiSelectItemTextStyles(
+                          selectedTextStyle: TextStyle(color: Colors.black)),
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all())),
+                      prefix: MultiSelectPrefix(
+                        selectedPrefix: const Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                    MultiSelectCard(
+                      value: 'northeast',
+                      child: Icon(Icons.north_east),
+                      textStyles: const MultiSelectItemTextStyles(
+                          selectedTextStyle: TextStyle(color: Colors.black)),
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all())),
+                      prefix: MultiSelectPrefix(
+                        selectedPrefix: const Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                    MultiSelectCard(
+                      value: 'southeast',
+                      child: Icon(Icons.south_east),
+                      textStyles: const MultiSelectItemTextStyles(
+                          selectedTextStyle: TextStyle(color: Colors.black)),
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all())),
+                      prefix: MultiSelectPrefix(
+                        selectedPrefix: const Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                    MultiSelectCard(
+                      value: 'southwest',
+                      child: Icon(Icons.south_west),
+                      textStyles: const MultiSelectItemTextStyles(
+                          selectedTextStyle: TextStyle(color: Colors.black)),
+                      decorations: MultiSelectItemDecorations(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(),
                           ),
@@ -444,7 +638,7 @@ class _MyHomePageState extends State<MyHomePage> {
               NumberPicker(
                 value: secChangeColor,
                 minValue: 1,
-                maxValue: 10,
+                maxValue: 59,
                 step: 1,
                 itemHeight: 20,
                 selectedTextStyle: TextStyle(fontSize: 22),
@@ -477,7 +671,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       NumberPicker(
                         value: roundDisplayedMin,
                         minValue: 0,
-                        maxValue: 5,
+                        maxValue: 59,
                         step: 1,
                         itemHeight: 20,
                         selectedTextStyle: TextStyle(fontSize: 22),
@@ -542,7 +736,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       NumberPicker(
                         value: restDisplayedMin,
                         minValue: 0,
-                        maxValue: 2,
+                        maxValue: 59,
                         step: 1,
                         itemHeight: 20,
                         selectedTextStyle: TextStyle(fontSize: 22),
@@ -598,24 +792,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Anzahl Durchgänge total?',
                 style: TextStyle(fontSize: 15),
               ),
-              DropdownButton<int>(
+              NumberPicker(
                 value: anzRounds,
-                onChanged: (int? val) {
-                  setState(
-                    () {
-                      anzRounds = val!;
-                    },
-                  );
-                },
-                items: <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                    .map<DropdownMenuItem<int>>(
-                  (int val) {
-                    return DropdownMenuItem<int>(
-                      value: val,
-                      child: Text(val.toString()),
-                    );
-                  },
-                ).toList(),
+                minValue: 1,
+                maxValue: 59,
+                step: 1,
+                itemHeight: 20,
+                selectedTextStyle: TextStyle(fontSize: 22),
+                textStyle: TextStyle(fontSize: 13),
+                onChanged: (value) => setState(() => anzRounds = value),
               ),
               SizedBox(height: 12),
 
@@ -657,6 +842,7 @@ class RandomColorPage2 extends StatefulWidget {
   RandomColorPage2(
       {Key? key,
       required this.listSelectedColors,
+      required this.listSelectedArrows,
       required this.anzColorsOnPage,
       required this.secChangeColor,
       required this.secLengthRound,
@@ -665,6 +851,7 @@ class RandomColorPage2 extends StatefulWidget {
       : super(key: key);
 
   var listSelectedColors;
+  var listSelectedArrows;
   int anzColorsOnPage;
   int secChangeColor;
   int secLengthRound;
@@ -694,6 +881,8 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     11,
     12
   ]; //nur Füllwerte
+  var listWithSelectedArrows = [];
+  var listToFillContainersIcon = [];
 
   //var list4RandomHex = [0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000];
   int anzColorsOnPage2 = 1;
@@ -723,6 +912,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     _initializeSettinvariables();
     _initializeListHeight4Containers();
     _initializeListWithAllHex();
+    _initializeListSelectedArrows();
     organizeRound();
     _timer = Timer.periodic(
         Duration(seconds: 1),
@@ -762,6 +952,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   ),
                 )),
             Container(
+              child: listWithSelectedArrows[0],
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[1]),
               width: MediaQuery.of(context).size.width,
@@ -770,6 +961,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
+              child: Icon(Icons.north_west),
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[2]),
               width: MediaQuery.of(context).size.width,
@@ -950,6 +1142,10 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
   //füllt listWithSelectedColors ab aus widget.
   void _initializeListSelectedColors() {
     this.listWithSelectedColors = widget.listSelectedColors;
+  }
+
+  void _initializeListSelectedArrows() {
+    this.listWithSelectedArrows = widget.listSelectedArrows;
   }
 
   /**
@@ -1180,6 +1376,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     _initializeSettinvariables();
     _initializeListHeight4Containers();
     _initializeListWithAllHex();
+    _initializeListSelectedArrows();
     _initializeResetVariables();
     organizeRound();
   }
@@ -1204,6 +1401,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
         MaterialPageRoute(
             builder: (context) => RandomColorPage2(
                   listSelectedColors: this.listWithSelectedColors,
+                  listSelectedArrows: this.listWithSelectedArrows,
                   anzColorsOnPage: this.anzColorsOnPage2,
                   secChangeColor: this.secChangeColor2,
                   secLengthRound: this.secLengthRound2,
