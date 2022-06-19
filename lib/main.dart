@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:randomcolor_tomo/ColorsCheckbox.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
-import 'package:randomcolor_tomo/custom_icons_icons.dart';
 
 void main() {
   runApp(MyApp());
@@ -79,8 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //überprüft, ob Werte in Range sind
     if (this.selectedColors.length >= this.anzColorsOnPage &&
         this.secLengthRound > 0 &&
-        this.secLengthRest > 0 &&
-        this.selectedArrows.length != 0) {
+        this.secLengthRest > 0) {
       showDialog(
         context: context,
         builder: (_) => alertDialogCD(),
@@ -117,14 +115,19 @@ class _MyHomePageState extends State<MyHomePage> {
     for (int i = 0; i < selectedColors.length; i++) {
       if (selectedColors[i].length != 6) {
         if (selectedColors[i] == "north") {
-          //selectedArrows.add(Icon(Icons.north));
           selectedArrows.add("north");
           selectedColors[i] = 'fefefe';
         } else if (selectedColors[i] == 'east') {
-          selectedArrows.add(Icon(Icons.east));
+          selectedArrows.add('east');
+          selectedColors[i] = 'fefefe';
+        } else if (selectedColors[i] == 'south') {
+          selectedArrows.add('south');
+          selectedColors[i] = 'fefefe';
+        } else if (selectedColors[i] == 'west') {
+          selectedArrows.add('west');
           selectedColors[i] = 'fefefe';
         }
-      } else {}
+      }
     }
   }
 
@@ -914,6 +917,9 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
   int minsLengthRestCD = 1;
   bool isRest = false;
   var colorRestText = 0xffffffff;
+  var restText = '';
+  var paddingTopRestText = 0.0;
+  var fontsizeRestText = 0.0;
 
   int currentSecsCD = 0;
   int currentMinsCD = 0;
@@ -957,7 +963,27 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   color: Color(this.listToFillContainersHex[0]),
                   border: Border(bottom: BorderSide(color: Colors.black)),
                 ),
-                child: listToFillContainersIcon[0]),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: this.paddingTopRestText),
+                      child: Text(
+                        this.restText,
+                        style: TextStyle(
+                            color: Color(this.colorRestText),
+                            fontSize: this.fontsizeRestText,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height *
+                              (listHeight4Container[0]) /
+                              3),
+                      child: listToFillContainersIcon[0],
+                    )
+                  ],
+                )),
             Container(
               child: listToFillContainersIcon[1],
               height: MediaQuery.of(context).size.height *
@@ -986,6 +1012,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
+              child: listToFillContainersIcon[4],
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[4]),
               width: MediaQuery.of(context).size.width,
@@ -994,6 +1021,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
+              child: listToFillContainersIcon[5],
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[5]),
               width: MediaQuery.of(context).size.width,
@@ -1002,6 +1030,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
+              child: listToFillContainersIcon[6],
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[6]),
               width: MediaQuery.of(context).size.width,
@@ -1010,6 +1039,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
+              child: listToFillContainersIcon[7],
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[7]),
               width: MediaQuery.of(context).size.width,
@@ -1018,6 +1048,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
+              child: listToFillContainersIcon[8],
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[8]),
               width: MediaQuery.of(context).size.width,
@@ -1026,6 +1057,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
+              child: listToFillContainersIcon[9],
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[9]),
               width: MediaQuery.of(context).size.width,
@@ -1034,6 +1066,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
+              child: listToFillContainersIcon[10],
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[10]),
               width: MediaQuery.of(context).size.width,
@@ -1043,6 +1076,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
               ),
             ),
             Container(
+              child: listToFillContainersIcon[11],
               color: Color(this.listToFillContainersHex[11]),
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[11]),
@@ -1167,8 +1201,6 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     for (String item in listWithSelectedColors) {
       hexxcode = '0xff' + item;
       theHexCode = (int.parse(hexxcode));
-      print('the hexCode');
-      print(theHexCode);
       this.listWithSelectedHex.add(theHexCode);
     }
   }
@@ -1217,7 +1249,11 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
       //damit nicht gleiche Farben aufs Mal angezeigt werden
       if (i == 0) {
         listToFillContainersHex[i] = listWithSelectedHex[randomInt];
-        colorRestText = listToFillContainersHex[i]; //damit Text nicht erkennbar
+        this.colorRestText =
+            listToFillContainersHex[i]; //damit Text nicht erkennbar
+        this.restText = ''; //damit pfeil gute Position hat
+        this.paddingTopRestText = 0.0; //damit pfeil gute Position hat
+        this.fontsizeRestText = 0.0; //damit pfeil gute Position hat
       } else {
         while (
             listToFillContainersHex[i - 1] == listWithSelectedHex[randomInt]) {
@@ -1236,13 +1272,21 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
         String arrowDirection = listWithSelectedArrows[
             random.nextInt(listWithSelectedArrows.length)];
         if (arrowDirection == 'north') {
-          listToFillContainersIcon[i] = Icon(
-            Icons.north,
-            color: Colors.black,
-          );
+          listToFillContainersIcon[i] =
+              Icon(Icons.north, color: Colors.black, size: 60);
         } else if (arrowDirection == 'east') {
           listToFillContainersIcon[i] = Icon(
             Icons.east,
+            color: Colors.black,
+          );
+        } else if (arrowDirection == 'south') {
+          listToFillContainersIcon[i] = Icon(
+            Icons.south,
+            color: Colors.black,
+          );
+        } else if (arrowDirection == 'west') {
+          listToFillContainersIcon[i] = Icon(
+            Icons.west,
             color: Colors.black,
           );
         }
@@ -1264,10 +1308,13 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     this.listHeight4Container[0] = bodyPercentage /
         1; //damit Rest angezeigt werden kann-> 1. container nimmt 100% ein
     this.colorRestText = 0xffffffff;
-    listToFillContainersIcon[0] = Icon(
-      CustomIcons.screenshot_2022_06_19_133920,
-      size: 65,
-    );
+    this.restText = 'Pause';
+    this.paddingTopRestText = MediaQuery.of(context).size.height / 3;
+    this.fontsizeRestText = 80.0;
+    for (int i = 0; i < listToFillContainersHex.length; i++) {
+      //damit alle pfeile schwarz und somit nicht sichtbar in pause
+      listToFillContainersIcon[i] = Icon(Icons.north, color: Colors.black);
+    }
   }
 
   /**
@@ -1354,7 +1401,6 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
           //organize arrows
           for (int i = 0; i < listToFillContainersHex.length; i++) {
             if (listToFillContainersHex[i] != int.parse('0xfffefefe')) {
-              print(true);
               listToFillContainersIcon[i] =
                   Icon(Icons.north, color: Color(listToFillContainersHex[i]));
             } else {
@@ -1364,8 +1410,19 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                 listToFillContainersIcon[i] = Icon(
                   Icons.north,
                   color: Colors.black,
+                  size: 60,
                 );
               } else if (arrowDirection == 'east') {
+                listToFillContainersIcon[i] = Icon(
+                  Icons.east,
+                  color: Colors.black,
+                );
+              } else if (arrowDirection == 'south') {
+                listToFillContainersIcon[i] = Icon(
+                  Icons.east,
+                  color: Colors.black,
+                );
+              } else if (arrowDirection == 'west') {
                 listToFillContainersIcon[i] = Icon(
                   Icons.east,
                   color: Colors.black,
