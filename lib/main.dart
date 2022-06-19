@@ -109,25 +109,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   /**
-   * Initializes selectedArrows[] and sets correct color for arrows in selectedcolors
+   * Initializes selectedArrows[] and sets correct color for arrows in selectedcolors that there are only hex and no strings like 'north' etc
    */
   void organizeArrowsColors() {
     for (int i = 0; i < selectedColors.length; i++) {
       if (selectedColors[i].length != 6) {
-        if (selectedColors[i] == "north") {
-          selectedArrows.add("north");
-          selectedColors[i] = 'fefefe';
-        } else if (selectedColors[i] == 'east') {
-          selectedArrows.add('east');
-          selectedColors[i] = 'fefefe';
-        } else if (selectedColors[i] == 'south') {
-          selectedArrows.add('south');
-          selectedColors[i] = 'fefefe';
-        } else if (selectedColors[i] == 'west') {
-          selectedArrows.add('west');
-          selectedColors[i] = 'fefefe';
-        }
-      }
+        selectedArrows.add(selectedColors[i]);
+        selectedColors[i] =
+            'fefefe'; //weisser hintergrund aber nicht ffffff damit später erkennbar dass dort arrows angezeigt werden müssen
+      } //else ist bereits ein hexcode in selectedColors und kein arrow
     }
   }
 
@@ -1233,6 +1223,44 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     this.currentMinsCD = 0;
   }
 
+/**
+ * füllt listToFillContainersIcon mit korrektem icon und farbe inkl ob arrow sichtbar ist oder selbe farbe hat wie hintergrund
+ */
+  void addToListToFillContainersIcon(index, arrowDirection, arrowVisible) {
+    var sizeIcon = 60.0;
+    if (arrowVisible) {
+      if (arrowDirection == 'north') {
+        listToFillContainersIcon[index] =
+            Icon(Icons.north, color: Colors.black, size: sizeIcon);
+      } else if (arrowDirection == 'east') {
+        listToFillContainersIcon[index] =
+            Icon(Icons.east, color: Colors.black, size: sizeIcon);
+      } else if (arrowDirection == 'south') {
+        listToFillContainersIcon[index] =
+            Icon(Icons.south, color: Colors.black, size: sizeIcon);
+      } else if (arrowDirection == 'west') {
+        listToFillContainersIcon[index] =
+            Icon(Icons.west, color: Colors.black, size: sizeIcon);
+      } else if (arrowDirection == 'northeast') {
+        listToFillContainersIcon[index] =
+            Icon(Icons.north_east, color: Colors.black, size: sizeIcon);
+      } else if (arrowDirection == 'northwest') {
+        listToFillContainersIcon[index] =
+            Icon(Icons.north_west, color: Colors.black, size: sizeIcon);
+      } else if (arrowDirection == 'southeast') {
+        listToFillContainersIcon[index] =
+            Icon(Icons.south_east, color: Colors.black, size: sizeIcon);
+      } else if (arrowDirection == 'southwest') {
+        listToFillContainersIcon[index] =
+            Icon(Icons.south_west, color: Colors.black, size: sizeIcon);
+      }
+    } else {
+      //arrow should not be visible
+      listToFillContainersIcon[index] =
+          Icon(Icons.north, color: Color(listToFillContainersHex[index]));
+    }
+  }
+
   /**
    * wird nur bei wechsel von rest zu round aufgerufen und ganz am Anfang bei Start page2 
    */
@@ -1266,30 +1294,13 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     //organize arrows
     for (int i = 0; i < listToFillContainersHex.length; i++) {
       if (listToFillContainersHex[i] != int.parse('0xfffefefe')) {
-        listToFillContainersIcon[i] =
-            Icon(Icons.north, color: Color(listToFillContainersHex[i]));
+        //arrow not visible
+        addToListToFillContainersIcon(i, null, false);
       } else {
+        //arrow visible
         String arrowDirection = listWithSelectedArrows[
             random.nextInt(listWithSelectedArrows.length)];
-        if (arrowDirection == 'north') {
-          listToFillContainersIcon[i] =
-              Icon(Icons.north, color: Colors.black, size: 60);
-        } else if (arrowDirection == 'east') {
-          listToFillContainersIcon[i] = Icon(
-            Icons.east,
-            color: Colors.black,
-          );
-        } else if (arrowDirection == 'south') {
-          listToFillContainersIcon[i] = Icon(
-            Icons.south,
-            color: Colors.black,
-          );
-        } else if (arrowDirection == 'west') {
-          listToFillContainersIcon[i] = Icon(
-            Icons.west,
-            color: Colors.black,
-          );
-        }
+        addToListToFillContainersIcon(i, arrowDirection, true);
       }
     }
   }
@@ -1401,33 +1412,13 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
           //organize arrows
           for (int i = 0; i < listToFillContainersHex.length; i++) {
             if (listToFillContainersHex[i] != int.parse('0xfffefefe')) {
-              listToFillContainersIcon[i] =
-                  Icon(Icons.north, color: Color(listToFillContainersHex[i]));
+              //arrow not visible
+              addToListToFillContainersIcon(i, null, false);
             } else {
+              //arrow visible
               String arrowDirection = listWithSelectedArrows[
                   random.nextInt(listWithSelectedArrows.length)];
-              if (arrowDirection == 'north') {
-                listToFillContainersIcon[i] = Icon(
-                  Icons.north,
-                  color: Colors.black,
-                  size: 60,
-                );
-              } else if (arrowDirection == 'east') {
-                listToFillContainersIcon[i] = Icon(
-                  Icons.east,
-                  color: Colors.black,
-                );
-              } else if (arrowDirection == 'south') {
-                listToFillContainersIcon[i] = Icon(
-                  Icons.east,
-                  color: Colors.black,
-                );
-              } else if (arrowDirection == 'west') {
-                listToFillContainersIcon[i] = Icon(
-                  Icons.east,
-                  color: Colors.black,
-                );
-              }
+              addToListToFillContainersIcon(i, arrowDirection, true);
             }
           }
         }
