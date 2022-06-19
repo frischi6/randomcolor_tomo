@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:randomcolor_tomo/ColorsCheckbox.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
+import 'package:randomcolor_tomo/custom_icons_icons.dart';
 
 void main() {
   runApp(MyApp());
@@ -116,7 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
     for (int i = 0; i < selectedColors.length; i++) {
       if (selectedColors[i].length != 6) {
         if (selectedColors[i] == "north") {
-          selectedArrows.add(Icon(Icons.north));
+          //selectedArrows.add(Icon(Icons.north));
+          selectedArrows.add("north");
           selectedColors[i] = 'fefefe';
         } else if (selectedColors[i] == 'east') {
           selectedArrows.add(Icon(Icons.east));
@@ -882,7 +884,20 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     12
   ]; //nur Füllwerte
   var listWithSelectedArrows = [];
-  var listToFillContainersIcon = [];
+  var listToFillContainersIcon = [
+    Icon(Icons.north),
+    Icon(Icons.north),
+    Icon(Icons.north),
+    Icon(Icons.north),
+    Icon(Icons.north),
+    Icon(Icons.north),
+    Icon(Icons.north),
+    Icon(Icons.north),
+    Icon(Icons.north),
+    Icon(Icons.north),
+    Icon(Icons.north),
+    Icon(Icons.north)
+  ];
 
   //var list4RandomHex = [0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000];
   int anzColorsOnPage2 = 1;
@@ -942,17 +957,9 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   color: Color(this.listToFillContainersHex[0]),
                   border: Border(bottom: BorderSide(color: Colors.black)),
                 ),
-                child: Center(
-                  child: Text(
-                    'Pause',
-                    style: TextStyle(
-                        color: Color(this.colorRestText),
-                        fontSize: 80,
-                        fontWeight: FontWeight.bold),
-                  ),
-                )),
+                child: listToFillContainersIcon[0]),
             Container(
-              child: listWithSelectedArrows[0],
+              child: listToFillContainersIcon[1],
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[1]),
               width: MediaQuery.of(context).size.width,
@@ -961,7 +968,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
-              child: Icon(Icons.north_west),
+              child: listToFillContainersIcon[2],
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[2]),
               width: MediaQuery.of(context).size.width,
@@ -970,6 +977,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   border: Border(bottom: BorderSide(color: Colors.black))),
             ),
             Container(
+              child: listToFillContainersIcon[3],
               height: MediaQuery.of(context).size.height *
                   (listHeight4Container[3]),
               width: MediaQuery.of(context).size.width,
@@ -1159,6 +1167,8 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     for (String item in listWithSelectedColors) {
       hexxcode = '0xff' + item;
       theHexCode = (int.parse(hexxcode));
+      print('the hexCode');
+      print(theHexCode);
       this.listWithSelectedHex.add(theHexCode);
     }
   }
@@ -1192,7 +1202,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
   }
 
   /**
-   * wird nur bei wechsel von rest zu round aufgerufen 
+   * wird nur bei wechsel von rest zu round aufgerufen und ganz am Anfang bei Start page2 
    */
   void organizeRound() {
     _initializeListHeight4Containers(); //damit nach rest wieder alle Grössen der Container stimmen
@@ -1215,15 +1225,28 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
         }
         listToFillContainersHex[i] = listWithSelectedHex[randomInt];
       }
+    }
 
-      /*while (listWithSelectedHex[randomInt] == list4RandomHex[3] ||
-          listWithSelectedHex[randomInt] == list4RandomHex[2] ||
-          listWithSelectedHex[randomInt] == list4RandomHex[1] ||
-          listWithSelectedHex[randomInt] == list4RandomHex[0]) {
-        randomInt = random.nextInt(listWithSelectedColors.length);
+    //organize arrows
+    for (int i = 0; i < listToFillContainersHex.length; i++) {
+      if (listToFillContainersHex[i] != int.parse('0xfffefefe')) {
+        listToFillContainersIcon[i] =
+            Icon(Icons.north, color: Color(listToFillContainersHex[i]));
+      } else {
+        String arrowDirection = listWithSelectedArrows[
+            random.nextInt(listWithSelectedArrows.length)];
+        if (arrowDirection == 'north') {
+          listToFillContainersIcon[i] = Icon(
+            Icons.north,
+            color: Colors.black,
+          );
+        } else if (arrowDirection == 'east') {
+          listToFillContainersIcon[i] = Icon(
+            Icons.east,
+            color: Colors.black,
+          );
+        }
       }
-
-      this.list4RandomHex[i] = listWithSelectedHex[randomInt];*/
     }
   }
 
@@ -1241,6 +1264,10 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     this.listHeight4Container[0] = bodyPercentage /
         1; //damit Rest angezeigt werden kann-> 1. container nimmt 100% ein
     this.colorRestText = 0xffffffff;
+    listToFillContainersIcon[0] = Icon(
+      CustomIcons.screenshot_2022_06_19_133920,
+      size: 65,
+    );
   }
 
   /**
@@ -1322,14 +1349,29 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
               }
               listToFillContainersHex[i] = listWithSelectedHex[randomInt];
             }
-            /*while (listWithSelectedHex[randomInt] == list4RandomHex[3] ||
-                listWithSelectedHex[randomInt] == list4RandomHex[2] ||
-                listWithSelectedHex[randomInt] == list4RandomHex[1] ||
-                listWithSelectedHex[randomInt] == list4RandomHex[0]) {
-              randomInt = random.nextInt(listWithSelectedColors.length);
-            }
+          }
 
-            this.list4RandomHex[i] = listWithSelectedHex[randomInt];*/
+          //organize arrows
+          for (int i = 0; i < listToFillContainersHex.length; i++) {
+            if (listToFillContainersHex[i] != int.parse('0xfffefefe')) {
+              print(true);
+              listToFillContainersIcon[i] =
+                  Icon(Icons.north, color: Color(listToFillContainersHex[i]));
+            } else {
+              String arrowDirection = listWithSelectedArrows[
+                  random.nextInt(listWithSelectedArrows.length)];
+              if (arrowDirection == 'north') {
+                listToFillContainersIcon[i] = Icon(
+                  Icons.north,
+                  color: Colors.black,
+                );
+              } else if (arrowDirection == 'east') {
+                listToFillContainersIcon[i] = Icon(
+                  Icons.east,
+                  color: Colors.black,
+                );
+              }
+            }
           }
         }
       }

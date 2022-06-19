@@ -47,13 +47,14 @@ flutter_native_splash:
   android: true
   ios: true
 
-
+#for splash screen
 flutter_icons:
   android: true
   ios: true
   image_path: "assets/skillatics_weiss.png"
   adaptive_icon_background: "#ff0000"
   adaptive_icon_foreground: "assets/skillatics_weiss_foreground.png"
+          
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -96,3 +97,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+#for custom icon pause https://www.freecodecamp.org/news/how-to-add-custom-icons-to-your-flutter-application/
+  fonts:
+   - family:  CustomIcons
+     fonts:
+      - asset: fonts/CustomIcons.ttf
