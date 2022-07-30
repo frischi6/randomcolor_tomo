@@ -945,35 +945,29 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
         body: Column(
           children: [
             Container(
-                height: MediaQuery.of(context).size.height *
-                    (listHeight4Container[
-                        0]), //noch ersetzen mit 1/"wie viele farben aufs mal anzeigen"
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Color(this.listToFillContainersHex[0]),
-                  border: Border(bottom: BorderSide(color: Colors.black)),
-                ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: this.paddingTopRestText),
-                      child: Text(
-                        this.restText,
-                        style: TextStyle(
-                            color: Color(this.colorRestText),
-                            fontSize: this.fontsizeRestText,
-                            fontWeight: FontWeight.bold),
-                      ),
+              height: MediaQuery.of(context).size.height *
+                  (listHeight4Container[
+                      0]), //noch ersetzen mit 1/"wie viele farben aufs mal anzeigen"
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: Color(this.listToFillContainersHex[0]),
+                border: Border(bottom: BorderSide(color: Colors.black)),
+              ),
+              child: Stack(
+                children: [
+                  Center(child: listToFillContainersIcon[0]),
+                  Center(
+                    child: Text(
+                      this.restText,
+                      style: TextStyle(
+                          color: Color(this.colorRestText),
+                          fontSize: this.fontsizeRestText,
+                          fontWeight: FontWeight.bold),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height *
-                              (listHeight4Container[0]) /
-                              3),
-                      child: listToFillContainersIcon[0],
-                    )
-                  ],
-                )),
+                  ),
+                ],
+              ),
+            ),
             Container(
               child: listToFillContainersIcon[1],
               height: MediaQuery.of(context).size.height *
