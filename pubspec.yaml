@@ -32,6 +32,8 @@ dependencies:
   flutter_multi_select_items: ^0.4.0 #für Farbauswahl
   flutter_launcher_icons: ^0.9.3 #für icon auf homebildschirm
 
+  get: #damit app zweisprachig ist
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

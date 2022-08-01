@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:randomcolor_tomo/ColorsCheckbox.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
+import 'package:randomcolor_tomo/TranslationText.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,13 +31,15 @@ class MyApp extends StatelessWidget {
   MaterialColor colorCustom = MaterialColor(0xffbcfa00, color);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Skillatics',
       theme: ThemeData(
         primarySwatch: colorCustom,
         unselectedWidgetColor: Colors.black,
       ),
       home: MyHomePage(title: 'Skillatics'),
+      translations: TranslationText(),
+      locale: Locale('de', 'DE'),
     );
   }
 }
@@ -53,6 +57,11 @@ class _MyHomePageState extends State<MyHomePage> {
   String hexxcode = '0xff';
   int theHexCode = 0;
   String textFehlermeldung = '';
+  bool isGerman = true;
+  String currentCountry = "GB"; //flagge die oben rechts angezeigt wird
+
+  String testString = 'test';
+  String testStringLang = 'spa';
 
 //Variabeln für Einstellungen, siehe Skizze, werden an Page2 übergeben
   int anzColorsOnPage = 2;
@@ -71,6 +80,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
 //Checkboxen, mit allen gewünschten Farben
   var selectedColors = [];
+
+  String countryFlag() {
+    //https://stackoverflow.com/questions/56999448/display-country-flag-character-in-flutter
+    int flagOffset = 0x1F1E6;
+    int asciiOffset = 0x41;
+
+    int firstChar = currentCountry.codeUnitAt(0) - asciiOffset + flagOffset;
+    int secondChar = currentCountry.codeUnitAt(1) - asciiOffset + flagOffset;
+
+    String emoji =
+        String.fromCharCode(firstChar) + String.fromCharCode(secondChar);
+    return emoji;
+  }
 
   //Wechsel auf Seite 2 mit den angezeigten Farben
   void _changeToPage2() {
@@ -103,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       //Fehlermeldung falls Eingaben nicht korrekt
       setState(() {
-        this.textFehlermeldung = 'Deine Angaben sind ungültig.';
+        this.textFehlermeldung = 'ungültigeAngaben'.tr;
       });
     }
   }
@@ -128,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return AlertDialog(
       content: Center(
         heightFactor: 1.2,
-        child: Text('Mach dich bereit!\n'),
+        child: Text('bereit'.tr),
       ),
     );
   }
@@ -146,6 +168,30 @@ class _MyHomePageState extends State<MyHomePage> {
             widget.title,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                if (isGerman) {
+                  Get.updateLocale(Locale('en', 'US'));
+                  isGerman = false;
+                  this.currentCountry = "DE";
+                } else {
+                  //is English
+                  Get.updateLocale(Locale('de', 'DE'));
+                  isGerman = true;
+                  this.currentCountry = "GB";
+                }
+                setState(() {
+                  testString = 'test'.tr;
+                  testStringLang = testString;
+                });
+              },
+              child: Text(
+                countryFlag(),
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          ],
           centerTitle: true,
           automaticallyImplyLeading: false //damit kein zurück-Pfeil oben links
           ),
@@ -159,9 +205,10 @@ class _MyHomePageState extends State<MyHomePage> {
               //Checkbox - Mit welchen Farben trainieren
               //SizedBox(height: 20,),
               Text(
-                'Die Farben, mit denen du trainieren möchtest?',
+                'selFarben'.tr,
                 style: TextStyle(fontSize: 15),
               ),
+              Text(testString.tr),
               SizedBox(height: 18),
               ConstrainedBox(
                 constraints: BoxConstraints(),
@@ -178,8 +225,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   )),
                   items: [
                     MultiSelectCard(
+                      clipBehavior: Clip.antiAlias,
+                      child: Text(testStringLang),
                       value: 'f5ff00',
-                      label: 'Gelb',
                       decorations: MultiSelectItemDecorations(
                           decoration: BoxDecoration(
                             color: Colors.yellow.withOpacity(0.4),
@@ -191,7 +239,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     MultiSelectCard(
                       value: 'ff5f1f',
-                      label: 'Orange',
+                      label: 'Orange'.tr,
                       decorations: MultiSelectItemDecorations(
                           decoration: BoxDecoration(
                             color: Colors.orange.withOpacity(0.4),
@@ -593,7 +641,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //Dropdown - wie viele Farben aufs Mal angezeigt werden
               SizedBox(height: 12),
               Text(
-                'Anzahl Farben, die aufs Mal angezeigt werden?',
+                'selAnzFarben'.tr,
                 style: TextStyle(fontSize: 15),
               ),
               DropdownButton<int>(
@@ -627,7 +675,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //Applescroll - Farbwechsel nach wie vielen Sekunden
               SizedBox(height: 12),
               Text(
-                'Farbwechsel nach wie vielen Sekunden?',
+                'selWechselSek'.tr,
                 style: TextStyle(fontSize: 15),
               ),
               NumberPicker(
@@ -652,7 +700,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //Applescroll - Dauer eines Durchlaufs
               SizedBox(height: 12),
               Text(
-                "Dauer eines Durchlaufs?",
+                'selDurchlauf'.tr,
                 style: TextStyle(fontSize: 15),
               ),
               SizedBox(
@@ -681,7 +729,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
-                  Text('Min.'),
+                  Text('min'.tr),
                   Column(
                     children: [
                       NumberPicker(
@@ -702,7 +750,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
-                  Text('Sek.'),
+                  Text('sek'.tr),
                 ],
               ),
               SizedBox(height: 12),
@@ -717,7 +765,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //Applescroll - Dauer einer Pause
               SizedBox(height: 12),
               Text(
-                "Dauer einer Pause?",
+                'selPause'.tr,
                 style: TextStyle(fontSize: 15),
               ),
               SizedBox(
@@ -747,7 +795,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
-                  Text('Min.'),
+                  Text('min'.tr),
                   Column(
                     children: [
                       NumberPicker(
@@ -769,7 +817,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
-                  Text('Sek.'),
+                  Text('sek'.tr),
                 ],
               ),
               SizedBox(height: 12),
@@ -784,7 +832,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //Dropdown - Anzahl Durchgänge
               SizedBox(height: 12),
               Text(
-                'Anzahl Durchgänge total?',
+                'selAnzDurchg'.tr,
                 style: TextStyle(fontSize: 15),
               ),
               NumberPicker(
@@ -814,7 +862,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
               TextButton(
                 child: Text(
-                  'Start',
+                  'start'.tr,
                 ),
                 style: TextButton.styleFrom(
                     primary: Colors.black,
@@ -1111,7 +1159,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   Container(
                     child: TextButton(
                       child: Text(
-                        'Hauptmenü',
+                        'hauptmenü'.tr,
                         style: TextStyle(
                           color: Colors.black,
                         ),
@@ -1127,7 +1175,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
                   Container(
                     child: TextButton(
                       child: Text(
-                        'Neustart',
+                        'neustart'.tr,
                         style: TextStyle(
                           color: Colors.black,
                         ),
@@ -1313,7 +1361,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     this.listHeight4Container[0] = bodyPercentage /
         1; //damit Rest angezeigt werden kann-> 1. container nimmt 100% ein
     this.colorRestText = 0xffffffff;
-    this.restText = 'Pause';
+    this.restText = 'pause'.tr;
     this.paddingTopRestText = MediaQuery.of(context).size.height / 3;
     this.fontsizeRestText = 80.0;
     for (int i = 0; i < listToFillContainersHex.length; i++) {
@@ -1434,18 +1482,18 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     this.anzRoundsDone--;
     return AlertDialog(
       //ähnlich wie modalWindow
-      content: Text('Trainingsrunde beendet!'),
+      content: Text('trainingEnde'.tr),
       actions: [
         TextButton(
             onPressed: changeToPage1,
             child: Text(
-              'Hauptmenü',
+              'hauptmenü'.tr,
               style: TextStyle(color: Color.fromARGB(177, 0, 0, 0)),
             )),
         TextButton(
             onPressed: changeToPage2,
             child: Text(
-              'Neustart',
+              'neustart'.tr,
               style: TextStyle(color: Color.fromARGB(177, 0, 0, 0)),
             )),
       ],
@@ -1472,7 +1520,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => MyHomePage(title: 'Colorswitch by Tomo')));
+            builder: (context) => MyHomePage(title: 'Skillatics')));
   }
 
   /**
