@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int theHexCode = 0;
   String textFehlermeldung = '';
   bool isGerman = true;
-  String currentCountry = "GB"; //flagge die oben rechts angezeigt wird
+  String currentCountry = "GB"; //flagge die aktuell oben rechts angezeigt wird
 
   String testString = 'test';
   String testStringLang = 'spa';
@@ -99,6 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
     organizeArrowsColors();
     //überprüft, ob Werte in Range sind
     if (this.selectedColors.length >= this.anzColorsOnPage &&
+        this.secLengthRound > this.secChangeColor &&
         this.secLengthRound > 0 &&
         this.secLengthRest > 0) {
       showDialog(
@@ -225,7 +226,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   )),
                   items: [
                     MultiSelectCard(
-                      clipBehavior: Clip.antiAlias,
                       child: Text(testStringLang),
                       value: 'f5ff00',
                       decorations: MultiSelectItemDecorations(
@@ -644,24 +644,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 'selAnzFarben'.tr,
                 style: TextStyle(fontSize: 15),
               ),
-              DropdownButton<int>(
+              NumberPicker(
                 value: anzColorsOnPage,
-                onChanged: (int? val) {
-                  setState(
-                    () {
-                      anzColorsOnPage = val!;
-                    },
-                  );
-                },
-                items: <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-                    .map<DropdownMenuItem<int>>(
-                  (int val) {
-                    return DropdownMenuItem<int>(
-                      value: val,
-                      child: Text(val.toString()),
-                    );
-                  },
-                ).toList(),
+                minValue: 1,
+                maxValue: 12,
+                step: 1,
+                itemHeight: 20,
+                selectedTextStyle: TextStyle(fontSize: 22),
+                textStyle: TextStyle(fontSize: 13),
+                onChanged: (value) => setState(() => anzColorsOnPage = value),
               ),
               SizedBox(height: 12),
 
@@ -838,7 +829,7 @@ class _MyHomePageState extends State<MyHomePage> {
               NumberPicker(
                 value: anzRounds,
                 minValue: 1,
-                maxValue: 59,
+                maxValue: 99,
                 step: 1,
                 itemHeight: 20,
                 selectedTextStyle: TextStyle(fontSize: 22),
@@ -968,6 +959,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
   double thicknessVerticalDividerFooter = 0.5;
 
   void initState() {
+    print('page2 init');
     _initializeSettinvariables();
     _initializeListHeight4Containers();
     _initializeListWithAllHex();
@@ -1230,6 +1222,7 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     _initializeListSelectedColors();
     String hexxcode = '0xff';
     int theHexCode = 0;
+
     for (String item in listWithSelectedColors) {
       hexxcode = '0xff' + item;
       theHexCode = (int.parse(hexxcode));
@@ -1315,9 +1308,9 @@ class _RandomColorPage2 extends State<RandomColorPage2> {
     Random random = new Random();
     for (var i = 0; i < this.anzColorsOnPage2; i++) {
       randomInt = random.nextInt(listWithSelectedColors.length);
-
       //damit nicht gleiche Farben aufs Mal angezeigt werden
-      if (i == 0) {
+      if (i == 0 || listWithSelectedHex[randomInt] == 4294901502) {
+        //4294901502 ist wert, als der 0xfffefefe geparst in listWithSelectedHex gespeichert ist
         listToFillContainersHex[i] = listWithSelectedHex[randomInt];
         this.colorRestText =
             listToFillContainersHex[i]; //damit Text nicht erkennbar
