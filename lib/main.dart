@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       title: 'Skillatics',
       theme: ThemeData(
         primarySwatch: colorCustom,
-        unselectedWidgetColor: Colors.black,
+        unselectedWidgetColor: Colors.black, //noch nötig?
       ),
       home: MyHomePage(title: 'Skillatics'),
       translations: TranslationText(),
@@ -60,9 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isGerman = true;
   String currentCountry = "GB"; //flagge die aktuell oben rechts angezeigt wird
 
-  String testString = 'test';
-  String testStringLang = 'spa';
-
 //Variabeln für Einstellungen, siehe Skizze, werden an Page2 übergeben
   int anzColorsOnPage = 2;
   int secChangeColor = 5;
@@ -81,6 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
 //Checkboxen, mit allen gewünschten Farben
   var selectedColors = [];
 
+/**
+ * erzeugt Emoji mit Flagge mit entsprechendem Wert currentCountry
+ */
   String countryFlag() {
     //https://stackoverflow.com/questions/56999448/display-country-flag-character-in-flutter
     int flagOffset = 0x1F1E6;
@@ -156,6 +156,420 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+/**
+ * returnt ein MultiSelectContainer, in dem alle Farben ausgewählt werden können
+ */
+  MultiSelectContainer buildColorselect() {
+    return MultiSelectContainer(
+      key: //https://jelenaaa.medium.com/how-to-force-widget-to-redraw-in-flutter-2eec703bc024
+          UniqueKey(), //damit Unterschied in Widget entdeckt wird und somit Widget rebuild wird
+      prefix: MultiSelectPrefix(
+          selectedPrefix: const Padding(
+        padding: EdgeInsets.only(right: 5),
+        child: Icon(
+          Icons.check,
+          color: Colors.white,
+          size: 14,
+        ),
+      )),
+      items: [
+        MultiSelectCard(
+          value: 'f5ff00',
+          label: 'Gelb'.tr,
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.yellow.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.yellow,
+                  borderRadius: BorderRadius.circular(10))),
+        ),
+        MultiSelectCard(
+          value: 'ff5f1f',
+          label: 'Orange'.tr,
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.orange.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.circular(10))),
+        ),
+        MultiSelectCard(
+          value: 'ff0000',
+          label: 'Rot'.tr,
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.red.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.red, borderRadius: BorderRadius.circular(10))),
+        ),
+        MultiSelectCard(
+          value: 'f500ab',
+          label: 'Pink'.tr,
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.pink.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.pink, borderRadius: BorderRadius.circular(10))),
+        ),
+        MultiSelectCard(
+          value: '6600a1',
+          label: 'Violett'.tr,
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 102, 0, 161).withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Color.fromARGB(255, 102, 0, 161),
+                  borderRadius: BorderRadius.circular(10))),
+        ),
+        MultiSelectCard(
+          value: '00b2ee',
+          label: 'Hellblau'.tr,
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.lightBlue.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.lightBlue,
+                  borderRadius: BorderRadius.circular(10))),
+        ),
+        MultiSelectCard(
+          value: '00008b',
+          label: 'Dunkelblau'.tr,
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 00, 0, 139).withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Color.fromARGB(255, 00, 0, 139),
+                  borderRadius: BorderRadius.circular(10))),
+        ),
+        MultiSelectCard(
+          value: '00ee00',
+          label: 'Hellgrün'.tr,
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.lightGreen.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.lightGreen,
+                  borderRadius: BorderRadius.circular(10))),
+        ),
+        MultiSelectCard(
+          value: '006400',
+          label: 'Dunkelgrün'.tr,
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 0, 100, 0).withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Color.fromARGB(255, 0, 100, 0),
+                  borderRadius: BorderRadius.circular(10))),
+        ),
+        MultiSelectCard(
+          value: '00868b',
+          label: 'Türkis'.tr,
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 0, 134, 139).withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Color.fromARGB(255, 0, 134, 139),
+                  borderRadius: BorderRadius.circular(10))),
+        ),
+        MultiSelectCard(
+          value: 'a8a8a8',
+          label: 'Grau'.tr,
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 168, 168, 168).withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Color.fromARGB(255, 168, 168, 168),
+                  borderRadius: BorderRadius.circular(10))),
+        ),
+        MultiSelectCard(
+          value: '000000',
+          label: 'Schwarz'.tr,
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.6),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10))),
+          textStyles: MultiSelectItemTextStyles(
+            selectedTextStyle: TextStyle(color: Colors.white),
+          ),
+        ),
+        MultiSelectCard(
+          value: 'bd9b16',
+          label: 'Gold'.tr,
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 189, 155, 22).withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Color.fromARGB(255, 189, 155, 22),
+                  borderRadius: BorderRadius.circular(10))),
+        ),
+        MultiSelectCard(
+          value: 'ffffff',
+          label: 'Weiss'.tr,
+          textStyles: const MultiSelectItemTextStyles(
+              selectedTextStyle: TextStyle(color: Colors.black)),
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 203, 203, 203).withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all())),
+          prefix: MultiSelectPrefix(
+            selectedPrefix: const Padding(
+              padding: EdgeInsets.only(right: 5),
+              child: Icon(
+                Icons.check,
+                color: Colors.black,
+                size: 14,
+              ),
+            ),
+          ),
+        ),
+        MultiSelectCard(
+          value: 'north',
+          child: Icon(Icons.north),
+          textStyles: const MultiSelectItemTextStyles(
+              selectedTextStyle: TextStyle(color: Colors.black)),
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all())),
+          prefix: MultiSelectPrefix(
+            selectedPrefix: const Padding(
+              padding: EdgeInsets.only(right: 5),
+              child: Icon(
+                Icons.check,
+                color: Colors.black,
+                size: 14,
+              ),
+            ),
+          ),
+        ),
+        MultiSelectCard(
+          value: 'east',
+          child: Icon(Icons.east),
+          textStyles: const MultiSelectItemTextStyles(
+              selectedTextStyle: TextStyle(color: Colors.black)),
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all())),
+          prefix: MultiSelectPrefix(
+            selectedPrefix: const Padding(
+              padding: EdgeInsets.only(right: 5),
+              child: Icon(
+                Icons.check,
+                color: Colors.black,
+                size: 14,
+              ),
+            ),
+          ),
+        ),
+        MultiSelectCard(
+          value: 'south',
+          child: Icon(Icons.south),
+          textStyles: const MultiSelectItemTextStyles(
+              selectedTextStyle: TextStyle(color: Colors.black)),
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all())),
+          prefix: MultiSelectPrefix(
+            selectedPrefix: const Padding(
+              padding: EdgeInsets.only(right: 5),
+              child: Icon(
+                Icons.check,
+                color: Colors.black,
+                size: 14,
+              ),
+            ),
+          ),
+        ),
+        MultiSelectCard(
+          value: 'west',
+          child: Icon(Icons.west),
+          textStyles: const MultiSelectItemTextStyles(
+              selectedTextStyle: TextStyle(color: Colors.black)),
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all())),
+          prefix: MultiSelectPrefix(
+            selectedPrefix: const Padding(
+              padding: EdgeInsets.only(right: 5),
+              child: Icon(
+                Icons.check,
+                color: Colors.black,
+                size: 14,
+              ),
+            ),
+          ),
+        ),
+        MultiSelectCard(
+          value: 'northwest',
+          child: Icon(Icons.north_west),
+          textStyles: const MultiSelectItemTextStyles(
+              selectedTextStyle: TextStyle(color: Colors.black)),
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all())),
+          prefix: MultiSelectPrefix(
+            selectedPrefix: const Padding(
+              padding: EdgeInsets.only(right: 5),
+              child: Icon(
+                Icons.check,
+                color: Colors.black,
+                size: 14,
+              ),
+            ),
+          ),
+        ),
+        MultiSelectCard(
+          value: 'northeast',
+          child: Icon(Icons.north_east),
+          textStyles: const MultiSelectItemTextStyles(
+              selectedTextStyle: TextStyle(color: Colors.black)),
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all())),
+          prefix: MultiSelectPrefix(
+            selectedPrefix: const Padding(
+              padding: EdgeInsets.only(right: 5),
+              child: Icon(
+                Icons.check,
+                color: Colors.black,
+                size: 14,
+              ),
+            ),
+          ),
+        ),
+        MultiSelectCard(
+          value: 'southeast',
+          child: Icon(Icons.south_east),
+          textStyles: const MultiSelectItemTextStyles(
+              selectedTextStyle: TextStyle(color: Colors.black)),
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all())),
+          prefix: MultiSelectPrefix(
+            selectedPrefix: const Padding(
+              padding: EdgeInsets.only(right: 5),
+              child: Icon(
+                Icons.check,
+                color: Colors.black,
+                size: 14,
+              ),
+            ),
+          ),
+        ),
+        MultiSelectCard(
+          value: 'southwest',
+          child: Icon(Icons.south_west),
+          textStyles: const MultiSelectItemTextStyles(
+              selectedTextStyle: TextStyle(color: Colors.black)),
+          decorations: MultiSelectItemDecorations(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(),
+              ),
+              selectedDecoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all())),
+          prefix: MultiSelectPrefix(
+            selectedPrefix: const Padding(
+              padding: EdgeInsets.only(right: 5),
+              child: Icon(
+                Icons.check,
+                color: Colors.black,
+                size: 14,
+              ),
+            ),
+          ),
+        ),
+      ],
+      onChange: (allSelectedItems, selectedItem) {
+        this.selectedColors = allSelectedItems;
+      },
+    );
+  }
+
   void initState() {
     super.initState();
   }
@@ -182,10 +596,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   isGerman = true;
                   this.currentCountry = "GB";
                 }
-                setState(() {
-                  testString = 'test'.tr;
-                  testStringLang = testString;
-                });
               },
               child: Text(
                 countryFlag(),
@@ -209,426 +619,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 'selFarben'.tr,
                 style: TextStyle(fontSize: 15),
               ),
-              Text(testString.tr),
               SizedBox(height: 18),
               ConstrainedBox(
                 constraints: BoxConstraints(),
                 //evtl. noch flexibel machen und nicht hardcode falls sich anzahl ändert oder format des bildschirms
-                child: MultiSelectContainer(
-                  prefix: MultiSelectPrefix(
-                      selectedPrefix: const Padding(
-                    padding: EdgeInsets.only(right: 5),
-                    child: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      size: 14,
-                    ),
-                  )),
-                  items: [
-                    MultiSelectCard(
-                      child: Text(testStringLang),
-                      value: 'f5ff00',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.yellow.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.yellow,
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: 'ff5f1f',
-                      label: 'Orange'.tr,
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.orange.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.orange,
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: 'ff0000',
-                      label: 'Rot',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.red.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: 'f500ab',
-                      label: 'Pink',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.pink.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.pink,
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: '6600a1',
-                      label: 'Violett',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 102, 0, 161)
-                                .withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Color.fromARGB(255, 102, 0, 161),
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: '00b2ee',
-                      label: 'Hellblau',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.lightBlue.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.lightBlue,
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: '00008b',
-                      label: 'Dunkelblau',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 00, 0, 139)
-                                .withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Color.fromARGB(255, 00, 0, 139),
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: '00ee00',
-                      label: 'Hellgrün',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.lightGreen.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.lightGreen,
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: '006400',
-                      label: 'Dunkelgrün',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color:
-                                Color.fromARGB(255, 0, 100, 0).withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Color.fromARGB(255, 0, 100, 0),
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: '00868b',
-                      label: 'Türkis',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 0, 134, 139)
-                                .withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Color.fromARGB(255, 0, 134, 139),
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: 'a8a8a8',
-                      label: 'Grau',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 168, 168, 168)
-                                .withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Color.fromARGB(255, 168, 168, 168),
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: '000000',
-                      label: 'Schwarz',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.6),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(10))),
-                      textStyles: MultiSelectItemTextStyles(
-                        selectedTextStyle: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    MultiSelectCard(
-                      value: 'bd9b16',
-                      label: 'Gold',
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 189, 155, 22)
-                                .withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Color.fromARGB(255, 189, 155, 22),
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    MultiSelectCard(
-                      value: 'ffffff',
-                      label: 'Weiss',
-                      textStyles: const MultiSelectItemTextStyles(
-                          selectedTextStyle: TextStyle(color: Colors.black)),
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 203, 203, 203)
-                                .withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all())),
-                      prefix: MultiSelectPrefix(
-                        selectedPrefix: const Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.black,
-                            size: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                    MultiSelectCard(
-                      value: 'north',
-                      child: Icon(Icons.north),
-                      textStyles: const MultiSelectItemTextStyles(
-                          selectedTextStyle: TextStyle(color: Colors.black)),
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all())),
-                      prefix: MultiSelectPrefix(
-                        selectedPrefix: const Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.black,
-                            size: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                    MultiSelectCard(
-                      value: 'east',
-                      child: Icon(Icons.east),
-                      textStyles: const MultiSelectItemTextStyles(
-                          selectedTextStyle: TextStyle(color: Colors.black)),
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all())),
-                      prefix: MultiSelectPrefix(
-                        selectedPrefix: const Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.black,
-                            size: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                    MultiSelectCard(
-                      value: 'south',
-                      child: Icon(Icons.south),
-                      textStyles: const MultiSelectItemTextStyles(
-                          selectedTextStyle: TextStyle(color: Colors.black)),
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all())),
-                      prefix: MultiSelectPrefix(
-                        selectedPrefix: const Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.black,
-                            size: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                    MultiSelectCard(
-                      value: 'west',
-                      child: Icon(Icons.west),
-                      textStyles: const MultiSelectItemTextStyles(
-                          selectedTextStyle: TextStyle(color: Colors.black)),
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all())),
-                      prefix: MultiSelectPrefix(
-                        selectedPrefix: const Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.black,
-                            size: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                    MultiSelectCard(
-                      value: 'northwest',
-                      child: Icon(Icons.north_west),
-                      textStyles: const MultiSelectItemTextStyles(
-                          selectedTextStyle: TextStyle(color: Colors.black)),
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all())),
-                      prefix: MultiSelectPrefix(
-                        selectedPrefix: const Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.black,
-                            size: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                    MultiSelectCard(
-                      value: 'northeast',
-                      child: Icon(Icons.north_east),
-                      textStyles: const MultiSelectItemTextStyles(
-                          selectedTextStyle: TextStyle(color: Colors.black)),
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all())),
-                      prefix: MultiSelectPrefix(
-                        selectedPrefix: const Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.black,
-                            size: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                    MultiSelectCard(
-                      value: 'southeast',
-                      child: Icon(Icons.south_east),
-                      textStyles: const MultiSelectItemTextStyles(
-                          selectedTextStyle: TextStyle(color: Colors.black)),
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all())),
-                      prefix: MultiSelectPrefix(
-                        selectedPrefix: const Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.black,
-                            size: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                    MultiSelectCard(
-                      value: 'southwest',
-                      child: Icon(Icons.south_west),
-                      textStyles: const MultiSelectItemTextStyles(
-                          selectedTextStyle: TextStyle(color: Colors.black)),
-                      decorations: MultiSelectItemDecorations(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(),
-                          ),
-                          selectedDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all())),
-                      prefix: MultiSelectPrefix(
-                        selectedPrefix: const Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.black,
-                            size: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                  onChange: (allSelectedItems, selectedItem) {
-                    this.selectedColors = allSelectedItems;
-                  },
-                ),
+                child: buildColorselect(),
               ),
               SizedBox(height: 15),
               Divider(
